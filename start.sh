@@ -18,6 +18,7 @@ service php-fpm start
 ## start postfix
 #service postfix start
 
+
 ## start nginx
 service nginx start
 
