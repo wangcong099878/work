@@ -2,6 +2,8 @@ FROM centos:centos6
 
 USER root
 
+WORKDIR /
+
 #安装yum源   mysql nginx php
 ADD ./tools/yum.repos.d/* /etc/yum.repos.d/
 ADD ./tools/rpm-gpg/* /etc/pki/rpm-gpg/
@@ -13,11 +15,11 @@ RUN rpm -ivh http://mirrors.aliyun.com/epel/epel-release-latest-6.noarch.rpm
 RUN useradd dev -u 1000
 RUN echo "plk789" | passwd --stdin "dev"
 
-#安装nginx php mysql
-RUN yum install nginx -y 
+#安装nginx php mysql redis memcache
+RUN yum install nginx redis memcached -y 
 ADD ./etc/nginx/nginx.conf /etc/nginx/nginx.conf
 
-RUN yum install php php-cli php-mysql php-mbstring php-gd php-fpm php-mssql php-xml php-tidy ImageMagick -y
+RUN yum install -y php php-cli php-mysql php-mbstring php-fpm php-mssql php-xml php-tidy php-pdo php-redis php-pecl-memcache pecl_http
 ADD ./etc/php-fpm.conf /etc/php-fpm.conf
 ADD ./etc/php-fpm.d/www.conf /etc/php-fpm.d/www.conf
 ADD ./etc/php.ini /etc/php.ini
@@ -63,3 +65,5 @@ CMD ["/bin/bash", "/start.sh"]
 EXPOSE 3306
 EXPOSE 80
 EXPOSE 22
+EXPOSE 6379
+EXPOSE 11211

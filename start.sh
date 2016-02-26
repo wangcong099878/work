@@ -22,3 +22,8 @@ service php-fpm start
 ## start nginx
 service nginx start
 
+## service redis start
+service redis start
+
+## memcached
+memcached -d -u nobody
