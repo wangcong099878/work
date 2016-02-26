@@ -1,5 +1,7 @@
 FROM centos:centos6
 
+USER root
+
 #安装yum源   mysql nginx php
 ADD ./tools/yum.repos.d/* /etc/yum.repos.d/
 ADD ./tools/rpm-gpg/* /etc/pki/rpm-gpg/
