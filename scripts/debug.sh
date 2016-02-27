@@ -1,15 +1,16 @@
 #!/bin/sh
 
-DIR="$( cd "$( dirname "$0" )" && pwd )"
+DIR=$(cd "$(dirname "$0")"; pwd) 
+source $DIR/config.sh
 
 ## create docker-data container if does not exist
-( docker ps -a |grep 'docker-data' >/dev/null ) || ( docker run --name docker-data -i -t vukor/docker-data )
+( docker ps -a |grep 'docker-data' >/dev/null ) || ( docker run --name docker-data -i -t wangcong/docker-data )
 
-## delete docker-lnmp container
-( docker ps -a |grep 'docker-lnmp' >/dev/null ) && ( docker rm docker-lnmp )
+## delete $IMAGE_NAME container
+( docker ps -a |grep '$BASE_NAME' >/dev/null ) && ( docker rm $BASE_NAME )
 
-## start docker-lnmp container
-docker run --name=docker-lnmp -t -i --rm=true \
+## start $IMAGE_NAME container
+docker run --name=$BASE_NAME -t -i --rm=true \
 	-p 80:80 \
 	-p 443:443 \
 	-p 3306:3306 \
@@ -26,4 +27,4 @@ docker run --name=docker-lnmp -t -i --rm=true \
 	-v "$DIR"/../etc/postfix/main.cf:/etc/postfix/main.cf \
 	-v "$DIR"/../logs:/home/dev/logs \
 	-v "$DIR"/../.ssh:/home/dev/.ssh \
-	vukor/docker-lnmp /bin/bash
+	$IMAGE_ID /bin/bash

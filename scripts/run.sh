@@ -1,15 +1,16 @@
 #!/bin/sh
 
-DIR="$( cd "$( dirname "$0" )" && pwd )"
+DIR=$(cd "$(dirname "$0")"; pwd) 
+source $DIR/config.sh
 
 ## create docker-data container if does not exist
 ( docker ps -a |grep 'docker-data' >/dev/null ) || ( docker create --name docker-data wangcong/docker-data )
 
-## delete docker-lnmp container
-( docker ps -a |grep 'docker-lnmp' >/dev/null ) && ( docker rm docker-lnmp )
+## delete $BASE_NAME container
+( docker ps -a |grep '$BASE_NAME' >/dev/null ) && ( docker rm $BASE_NAME )
 
-## start docker-lnmp container
-docker run --name=docker-lnmp -d \
+## start $BASE_NAME container
+docker run --name=$BASE_NAME -d \
 	-e MYSQL_LOGIN="test" \
 	-e MYSQL_PASSWORD="test" \
 	--volumes-from docker-data \
@@ -27,5 +28,4 @@ docker run --name=docker-lnmp -d \
 	-v "$DIR"/../www:/home/dev/www \
 	-v "$DIR"/../logs:/home/dev/logs \
 	-v "$DIR"/../.ssh:/home/dev/.ssh \
-        cason-work
-#	vukor/docker-lnmp
+        $IMAGE_ID

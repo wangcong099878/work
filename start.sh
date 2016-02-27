@@ -26,4 +26,4 @@ service nginx start
 service redis start
 
 ## memcached
-memcached -d -u nobody
+memcached -d -u dev
