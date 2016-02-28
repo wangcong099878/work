@@ -7,7 +7,7 @@ source $DIR/config.sh
 ( docker ps -a |grep 'docker-data' >/dev/null ) || ( docker run --name docker-data -i -t wangcong/docker-data )
 
 ## delete $IMAGE_NAME container
-( docker ps -a |grep '$BASE_NAME' >/dev/null ) && ( docker rm $BASE_NAME )
+( docker ps -a |grep '$BASE_NAME' >/dev/null ) && ( docker stop $BASE_NAME && docker rm $BASE_NAME)
 
 ## start $IMAGE_NAME container
 docker run --name=$BASE_NAME -t -i --rm=true \

@@ -17,8 +17,10 @@ IP_ADDRESS=`docker ps | grep $BASE_NAME | awk '{print $1}' | xargs  docker inspe
 chmod 700 "$DIR/../.ssh"
 chmod 400 $SSH_KEY
 
+echo "$DIR/../.ssh"
 ## connect
 ssh -i "$SSH_KEY" -l dev -q "$IP_ADDRESS"
+#ssh "dev@$IP_ADDRESS"
 
 exit 0
 

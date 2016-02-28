@@ -19,5 +19,3 @@ if [ ! -n "$IMAGE_ID" ]; then
         exit 0
     fi
 fi
-
-echo "selected  $IMAGE_NAME  IMAGE_ID:$IMAGE_ID   \n"
