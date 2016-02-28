@@ -18,12 +18,11 @@ service php-fpm start
 ## start postfix
 #service postfix start
 
-
-## start nginx
-service nginx start
-
 ## redis start
 service redis start
 
 ## memcached
 memcached -d -u dev
+
+## start nginx
+service nginx start
