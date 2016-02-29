@@ -13,7 +13,8 @@ sleep 1
 /usr/bin/mysql -e "grant all on *.* to $MYSQL_LOGIN@localhost identified by '$MYSQL_PASSWORD';"
 
 ## start php-fpm
-service php-fpm start
+##service php-fpm start
+/usr/sbin/php-fpm -R
 
 ## start postfix
 #service postfix start
